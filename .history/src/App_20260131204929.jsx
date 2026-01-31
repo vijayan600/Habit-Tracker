@@ -23,7 +23,7 @@ export default function App() {
       setHabits([
         { id: 1, name: 'Wake up at 05:00', emoji: '⏰', completed: {} },
         { id: 2, name: 'Gym', emoji: '💪', completed: {} },
-        { id: 3, name: '', emoji: '🚫', completed: {} },
+        { id: 3, name: 'S', emoji: '🚫', completed: {} },
         { id: 4, name: 'Reading / Learning', emoji: '📚', completed: {} },
         { id: 5, name: 'Budget Tracking', emoji: '💰', completed: {} },
         { id: 6, name: 'Project Work', emoji: '🧠', completed: {} },
