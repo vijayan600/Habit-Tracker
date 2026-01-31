@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Header({ view, setView }) {
   return (
-    <header className="header" style={{ position: 'static' }}>
+    <header className="header">
       <div className="header-content">
         <h1 className="title">My Habit Tracker</h1>
         <div className="view-toggle">
