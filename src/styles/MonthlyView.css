@@ -104,7 +104,7 @@
 .table-container {
   background: #111;
   border-radius: 12px;
-  overflow: visible;
+  overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   margin-bottom: 2rem;
   border: 1px solid #222;
@@ -112,9 +112,10 @@
 }
 
 .table-scroll {
-  overflow-x: visible;
+  overflow-x: auto;
   overflow-y: visible;
   width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table-scroll::-webkit-scrollbar {
@@ -136,6 +137,7 @@
   background: #10b981;
 }
 
+/* ─── Desktop grid (unchanged behaviour) ─── */
 .table-header {
   display: grid;
   grid-template-columns: 220px repeat(31, 1fr) 70px;
@@ -143,6 +145,7 @@
   background: #222;
   padding: 1px;
   width: 100%;
+  min-width: 220px + 31 * 36px + 70px; /* fallback; real min set per breakpoint */
 }
 
 .header-cell {
@@ -208,7 +211,24 @@
   background: linear-gradient(135deg, #1a4d3a 0%, #134432 100%);
 }
 
-/* Responsive Design */
+/* ─── Scroll-hint shadow on mobile ─── */
+.table-container::after {
+  content: '';
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 100%;
+  background: linear-gradient(to left, rgba(0,0,0,0.5), transparent);
+  pointer-events: none;
+  border-radius: 0 12px 12px 0;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+
 @media (max-width: 1400px) {
   .monthly-view {
     padding: 1.5rem 1rem;
@@ -255,6 +275,7 @@
   }
 }
 
+/* ─── Tablet ─── */
 @media (max-width: 768px) {
   .monthly-view {
     padding: 1rem 0.75rem;
@@ -289,13 +310,15 @@
     padding: 0.875rem 1rem;
   }
 
+  /* KEY FIX: fixed-width columns so the grid doesn't collapse */
   .table-header,
   .total-row {
-    grid-template-columns: 140px repeat(31, 1fr) 55px;
+    grid-template-columns: 150px repeat(31, 34px) 60px;
+    min-width: calc(150px + 31 * 34px + 60px); /* 1,165 px — scrolls on narrow screens */
   }
 
   .header-cell {
-    padding: 0.6rem 0.3rem;
+    padding: 0.6rem 0.25rem;
     font-size: 0.7rem;
   }
 
@@ -308,11 +331,20 @@
   }
 
   .total-cell {
-    padding: 0.6rem 0.3rem;
+    padding: 0.6rem 0.25rem;
     font-size: 0.75rem;
+  }
+
+  /* show the right-edge shadow hint */
+  .table-container {
+    position: relative;
+  }
+  .table-container::after {
+    display: block;
   }
 }
 
+/* ─── Mobile (< 640 px) ─── */
 @media (max-width: 640px) {
   .monthly-view {
     padding: 0.75rem 0.5rem;
@@ -340,13 +372,15 @@
     border-radius: 8px;
   }
 
+  /* 30 px per day column — still tap-friendly (30×31 = 930 + 120 + 60 = 1,110 px total) */
   .table-header,
   .total-row {
-    grid-template-columns: 130px repeat(31, 1fr) 50px;
+    grid-template-columns: 120px repeat(31, 30px) 60px;
+    min-width: calc(120px + 31 * 30px + 60px);
   }
 
   .header-cell {
-    padding: 0.5rem 0.25rem;
+    padding: 0.5rem 0.15rem;
     font-size: 0.65rem;
   }
 
@@ -360,9 +394,11 @@
 
   .total-cell {
     font-size: 0.65rem;
+    padding: 0.5rem 0.15rem;
   }
 }
 
+/* ─── Small mobile (< 480 px) ─── */
 @media (max-width: 480px) {
   .habit-input {
     font-size: 0.9rem;
@@ -372,5 +408,16 @@
   .add-button {
     font-size: 0.95rem;
     padding: 0.75rem;
+  }
+
+  /* tightest layout: 28 px day cols */
+  .table-header,
+  .total-row {
+    grid-template-columns: 110px repeat(31, 28px) 55px;
+    min-width: calc(110px + 31 * 28px + 55px);
+  }
+
+  .total-cell.habit-name-cell {
+    font-size: 0.75rem;
   }
 }

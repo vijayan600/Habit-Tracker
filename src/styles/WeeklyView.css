@@ -95,15 +95,15 @@
   transform: translateY(0);
 }
 
+/* ─── Days grid: 7 cards, never overflow ─── */
 .days-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 1rem;
-  overflow-x: auto;
-  padding-bottom: 0.5rem;
+  width: 100%;
 }
 
-/* Scrollbar styling */
+/* Scrollbar styling (only kicks in if grid ever scrolls) */
 .days-grid::-webkit-scrollbar {
   height: 10px;
 }
@@ -180,26 +180,19 @@
   text-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
-/* Responsive Design */
-@media (max-width: 1400px) {
-  .days-grid {
-    grid-template-columns: repeat(7, minmax(180px, 1fr));
-  }
-}
-
-@media (max-width: 1200px) {
-  .days-grid {
-    grid-template-columns: repeat(7, minmax(170px, 1fr));
-  }
-}
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
 
 @media (max-width: 1024px) {
   .weekly-view {
     padding: 1.5rem;
   }
 
+  /* 4 columns, wrap naturally */
   .days-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
   }
 
   .weekly-summary {
@@ -252,8 +245,9 @@
     font-size: 0.75rem;
   }
 
+  /* 3 columns on tablet */
   .days-grid {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.75rem;
   }
 
@@ -268,7 +262,7 @@
   }
 
   .summary-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
   }
 
@@ -309,8 +303,9 @@
     font-size: 0.7rem;
   }
 
+  /* 2 columns on small screens */
   .days-grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.65rem;
   }
 
@@ -325,6 +320,7 @@
   }
 
   .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
   }
 
@@ -368,6 +364,7 @@
     font-size: 0.65rem;
   }
 
+  /* single column on phones */
   .days-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
