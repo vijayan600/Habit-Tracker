@@ -42,10 +42,11 @@ export default function App() {
     }
   }, [habits]);
 
-  const addHabit = (name) => {
+  const addHabit = (name, emo) => {
     const newHabit = {
       id: Date.now(),
       name,
+      emoji,
       completed: {}
     };
     setHabits([...habits, newHabit]);

@@ -46,6 +46,7 @@ export default function App() {
     const newHabit = {
       id: Date.now(),
       name,
+
       completed: {}
     };
     setHabits([...habits, newHabit]);
