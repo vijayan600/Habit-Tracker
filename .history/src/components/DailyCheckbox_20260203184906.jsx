@@ -3,11 +3,13 @@ import React from 'react';
 export default function DailyCheckbox({ isChecked, isFuture, onToggle }) {
   return (
     <div 
-      className={`checkbox-cell ${isFuture ? 'future' : ''} ${isChecked ? 'checked' : ''}`}
+      className={`checkbox-cell ${isFuture ? 'future' : ''}`}
       onClick={!isFuture ? onToggle : undefined}
       style={{ cursor: isFuture ? 'not-allowed' : 'pointer' }}
     >
-      {isChecked && <span className="checkmark">✓</span>}
+      <div className={`checkbox ${isChecked ? 'checked' : ''}`}>
+        {isChecked && <span className="checkmark">✓</span>}
+      </div>
     </div>
   );
 }
